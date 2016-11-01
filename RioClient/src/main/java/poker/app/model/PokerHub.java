@@ -1,6 +1,7 @@
 package poker.app.model;
 
 import java.io.IOException;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -50,24 +51,36 @@ public class PokerHub extends Hub {
 	protected void messageReceived(int ClientID, Object message) {
 
 		if (message instanceof Action) {
+			Action act = (Action)message; //Part 4
 			
-			//TODO: If the Action = StartGame, start the game...
-			//		Create an instance of GamePlay, set all the parameters
+			//Part 4
+			if (act.getAction() == eAction.StartGame){
+				
+			}
 			
-			//TODO: If Action = Sit, add the player to the table
+			//Part 4
+			else if (act.getAction() == eAction.Sit){ 
+				HubPokerTable.AddPlayerToTable(act.getPlayer());
+				sendToAll(HubPokerTable);
+				
+			}
 			
-			//TODO: If Action = Leave, remove the player from the table
+			//Part 4
+			else if (act.getAction() == eAction.Leave){
+				HubPokerTable.RemovePlayerFromTable(act.getPlayer());
+				sendToAll(HubPokerTable);
+			}
 			
-			//TODO: If Action = Sit or Leave, send the Table
-			//		back to the client
-			
+		
 			//TODO: If Action = GameState, send HubGamePlay 
 			//		back to the client
+			//Ask about this because it is not in word document
 		}
 
 		System.out.println("Message Received by Hub");
 		
 		sendToAll("Sending Message Back to Client");
-	}
+}
 
 }
+
